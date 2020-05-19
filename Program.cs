@@ -10,6 +10,71 @@ namespace Masterclass_Linq_University
     {
         static void Main(string[] args)
         {
+            UniversityManager um = new UniversityManager();
+
+            um.MaleStudents();
+            um.FemaleStudents();
+
+            Console.WriteLine("Please enter a gender to search for...");
+            string gender = Console.ReadLine().ToLower(); ;
+            um.SearchByGenderStudents(gender);
+            Console.ReadLine();
+        }
+    }
+
+    class UniversityManager
+    {
+        public List<University> universities;
+        public List<Student> students;
+
+        public UniversityManager()
+        {
+            universities = new List<University>();
+            students = new List<Student>();
+
+            //Add unis
+            universities.Add(new University { Id = 1, Name = "Yale" });
+            universities.Add(new University { Id = 2, Name = "Beijing Tech" });
+
+            //add students
+            students.Add(new Student { Id = 1, Name = "Carla", Gender = "female", Age = 17, UniversityId = 1 });
+            students.Add(new Student { Id = 2, Name = "Toni", Gender = "male", Age = 21, UniversityId = 1 });
+            students.Add(new Student { Id = 3, Name = "Leyla", Gender = "female", Age = 19, UniversityId = 2 });
+            students.Add(new Student { Id = 4, Name = "James", Gender = "male", Age = 25, UniversityId = 2 });
+            students.Add(new Student { Id = 5, Name = "Linda", Gender = "female", Age = 22, UniversityId = 2 });
+        }
+
+        public void MaleStudents()
+        {
+            IEnumerable<Student> maleStudents = from student in students where student.Gender == "male" select student;
+            Console.WriteLine("Male - Students: ");
+
+            foreach(Student student in maleStudents)
+            {
+                student.Print();
+            }
+        }
+
+        public void FemaleStudents()
+        {
+            IEnumerable<Student> femaleStudents = from student in students where student.Gender == "female" select student;
+            Console.WriteLine("Female - Students: ");
+
+            foreach (Student student in femaleStudents)
+            {
+                student.Print();
+            }
+        }
+
+        public void SearchByGenderStudents(string gender)
+        {
+            IEnumerable<Student> allStudents = from student in students where student.Gender == gender select student;
+            Console.WriteLine("{0} - Students: ", gender);
+
+            foreach (Student student in allStudents)
+            {
+                student.Print();
+            }
         }
     }
 
