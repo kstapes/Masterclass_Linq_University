@@ -15,6 +15,7 @@ namespace Masterclass_Linq_University
             um.MaleStudents();
             um.FemaleStudents();
             um.SortStudentsByAge();
+            um.AllStudentsFromBeijingTech();
 
             Console.ReadLine();
         }
@@ -71,6 +72,20 @@ namespace Masterclass_Linq_University
             Console.WriteLine("Students sorted by Age");
 
             foreach(Student student in sortedStudents)
+            {
+                student.Print();
+            }
+        }
+
+        public void AllStudentsFromBeijingTech()
+        {
+            IEnumerable<Student> bjtSTudents = from student in students
+                                               join university in universities on student.UniversityId equals university.Id
+                                               where university.Name == "Beijing Tech"
+                                               select student;
+
+            Console.WriteLine("Students from Beijing");
+            foreach(Student student in bjtSTudents)
             {
                 student.Print();
             }
