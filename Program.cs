@@ -14,10 +14,8 @@ namespace Masterclass_Linq_University
 
             um.MaleStudents();
             um.FemaleStudents();
+            um.SortStudentsByAge();
 
-            Console.WriteLine("Please enter a gender to search for...");
-            string gender = Console.ReadLine().ToLower(); ;
-            um.SearchByGenderStudents(gender);
             Console.ReadLine();
         }
     }
@@ -49,7 +47,7 @@ namespace Masterclass_Linq_University
             IEnumerable<Student> maleStudents = from student in students where student.Gender == "male" select student;
             Console.WriteLine("Male - Students: ");
 
-            foreach(Student student in maleStudents)
+            foreach (Student student in maleStudents)
             {
                 student.Print();
             }
@@ -66,17 +64,19 @@ namespace Masterclass_Linq_University
             }
         }
 
-        public void SearchByGenderStudents(string gender)
+        public void SortStudentsByAge()
         {
-            IEnumerable<Student> allStudents = from student in students where student.Gender == gender select student;
-            Console.WriteLine("{0} - Students: ", gender);
+            var sortedStudents = from student in students orderby student.Age select student;
 
-            foreach (Student student in allStudents)
+            Console.WriteLine("Students sorted by Age");
+
+            foreach(Student student in sortedStudents)
             {
                 student.Print();
             }
         }
     }
+
 
     class University
     {
