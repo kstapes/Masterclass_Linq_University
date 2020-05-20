@@ -17,7 +17,18 @@ namespace Masterclass_Linq_University
             um.SortStudentsByAge();
             um.AllStudentsFromBeijingTech();
 
-            Console.ReadLine();
+            Console.WriteLine("Please enter an Id to search for all students from a university");
+            try
+            {
+                int inputId = Convert.ToInt32(Console.ReadLine());
+                um.AllStudentsFromUniversityById(inputId);
+                Console.ReadLine();
+            } catch (Exception){
+                Console.WriteLine("Incorrect Input");
+            }
+
+            Console.ReadKey();
+            
         }
     }
 
@@ -86,6 +97,20 @@ namespace Masterclass_Linq_University
 
             Console.WriteLine("Students from Beijing");
             foreach(Student student in bjtSTudents)
+            {
+                student.Print();
+            }
+        }
+
+        public void AllStudentsFromUniversityById(int Id)
+        {
+            IEnumerable<Student> uniStudents = from student in students
+                                               join university in universities on student.UniversityId equals university.Id
+                                               where university.Id == Id
+                                               select student;
+
+            Console.WriteLine("Students: ");
+            foreach (Student student in uniStudents)
             {
                 student.Print();
             }
